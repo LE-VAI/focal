@@ -1,6 +1,6 @@
 {
   "name": "@designesy/focal",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Keyboard focus, carried by real light: a solid outline chosen by measured contrast, and with Sill, the page's lamp travels to focus and the focused control lifts toward it. Zero dependencies.",
   "type": "module",
   "main": "src/focal.js",

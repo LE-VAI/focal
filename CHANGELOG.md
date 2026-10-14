@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1 (2026-10-13)
+
+Maintenance; the library code is unchanged.
+
+- CI: a brand gate (`tests/brand.test.mjs`) fails on any retired Designesy colour
+  in any text file, the same gate Sill runs.
+- Demos: the light comes from Sill 0.1.2, so the live demos and Sill's own run the
+  same release.
+- README: the no-build quick start pins 0.1.1.
+
 ## 0.1.0
 
 First release.

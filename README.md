@@ -32,9 +32,9 @@ new Focal({ sill });      // with Sill: the lamp travels to focus and the contro
 No build step:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@designesy/focal@0.1.0/src/focal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@designesy/focal@0.1.1/src/focal.css">
 <script type="module">
-  import { Focal } from 'https://cdn.jsdelivr.net/npm/@designesy/focal@0.1.0/src/focal.js';
+  import { Focal } from 'https://cdn.jsdelivr.net/npm/@designesy/focal@0.1.1/src/focal.js';
   new Focal();
 </script>
 ```

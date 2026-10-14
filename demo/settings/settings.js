@@ -1,4 +1,4 @@
-import { Sill } from 'https://cdn.jsdelivr.net/npm/@designesy/sill@0.1.1/src/sill.js';
+import { Sill } from 'https://cdn.jsdelivr.net/npm/@designesy/sill@0.1.2/src/sill.js';
 import { Focal } from '../../src/focal.js';
 
 const sill = new Sill({
