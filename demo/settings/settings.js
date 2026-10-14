@@ -12,7 +12,11 @@ const focal = new Focal({ sill });
 const size = document.getElementById('text-size');
 const sizeOut = document.getElementById('size-out');
 const sample = document.getElementById('size-sample');
-const showSize = () => { sizeOut.value = `${size.value} px`; sample.style.fontSize = `${size.value}px`; };
+const showSize = () => {
+  sizeOut.value = `${size.value} px`;
+  sample.style.fontSize = `${size.value}px`;
+  size.style.setProperty('--fill', `${((size.value - size.min) / (size.max - size.min)) * 100}%`);
+};
 size.addEventListener('input', showSize);
 showSize();
 

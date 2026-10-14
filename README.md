@@ -1,6 +1,13 @@
 # Focal
 
-Keyboard focus as light.
+Keyboard focus, carried by real light.
+
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/LE-VAI/focal/main/docs/media/hero-poster.png">
+  <img src="https://raw.githubusercontent.com/LE-VAI/focal/main/docs/media/hero-loop.webp" width="800" alt="A dark settings page moved through with the Tab key. Each press carries the page's lamp to the focused control and the card shadows shift with it; a solid blue outline marks focus. An arrow key switches the page to a light theme and back.">
+</picture>
+
+**[Live demos](https://le-vai.github.io/focal/)** · press Tab.
 
 The focused control gets a real outline whose colour is chosen by measuring
 contrast against the surface it sits on. With [Sill](https://github.com/LE-VAI/sill)
@@ -10,17 +17,30 @@ across the page swing as the lamp moves, so the eye follows a jump. Nothing is
 drawn on top. No glow, no halo: the emphasis is the light itself, so keyboard
 users get the same physical interface pointer users do.
 
+```bash
+npm install @designesy/focal
+```
+
 ```js
 import '@designesy/focal/focal.css';
 import { Focal } from '@designesy/focal';
 
-new Focal();              // on its own
-new Focal({ sill });      // with Sill: focus lifts and the light follows
+new Focal();              // on its own: the measured outline and the obscured-focus fix
+new Focal({ sill });      // with Sill: the lamp travels to focus and the control lifts
 ```
 
-```bash
-npm install @designesy/focal
+No build step:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@designesy/focal@0.1.0/src/focal.css">
+<script type="module">
+  import { Focal } from 'https://cdn.jsdelivr.net/npm/@designesy/focal@0.1.0/src/focal.js';
+  new Focal();
+</script>
 ```
+
+The light comes from [Sill](https://github.com/LE-VAI/sill) (`@designesy/sill`). Without it,
+Focal is still a complete focus indicator; it simply has no lamp to move.
 
 ## What it guarantees
 
@@ -28,6 +48,8 @@ npm install @designesy/focal
   can be removed without losing the indicator. The default 2 px
   outline at a 3 px offset meets the area floor of WCAG 2.2 SC 2.4.13 Focus
   Appearance for any component size (tested).
+<img src="https://raw.githubusercontent.com/LE-VAI/focal/main/docs/media/ring-measured.png" width="800" alt="Close-up of a Save profile button and a Cancel button. The focused Save button, filled Azure, has a white outline; a readout reads ring #FFFFFF, 20.9 to 1.">
+
 - **3:1 where it counts.** SC 2.4.13 measures the indicator's own pixels between
   the focused and unfocused states. Drawn outside the element, those pixels sit on
   the parent's background, so Focal picks the ring colour that keeps at least 3:1
@@ -76,10 +98,16 @@ Events: `focal:move` (`detail.from`, `detail.to`) and `focal:obscured`
 (`detail.fraction`, `detail.entirely`, `detail.cover`) bubble from the focused
 element.
 
-## Demo
+## Demos
 
-`demo/settings/` is a settings page with a sticky header, a skip link, and
-controls spread across the page. Press Tab.
+Live at **[le-vai.github.io/focal](https://le-vai.github.io/focal/)**.
+
+- `demo/settings/` is a settings page with a sticky header, a skip link, a theme
+  control that really switches between light and dark, and controls spread
+  across the page. Press Tab.
+- `demo/end/` is the wordmark, lit by Sill and focused by Focal.
+
+To run them locally:
 
 ```bash
 python -m http.server 4742
@@ -89,7 +117,7 @@ Then open `http://localhost:4742/demo/settings/`.
 
 ## Browser support
 
-Focal needs nothing beyond `:focus-visible` and `requestAnimationFrame`. Tested in Chrome 154 and Firefox 152 on Windows, with no console errors. Safari is not yet tested.
+Focal needs nothing beyond `:focus-visible` and `requestAnimationFrame`. Tested in Chrome 154 and Firefox 152 on Windows: focus travel, eased lift, theme switching and ring re-measurement, with no console errors. Safari is not yet tested.
 
 ## License
 

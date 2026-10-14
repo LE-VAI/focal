@@ -1,24 +1,57 @@
 {
   "name": "@designesy/focal",
   "version": "0.1.0",
-  "description": "Keyboard focus as light: a real outline chosen by measured contrast, a trail that shows where focus came from, and focus that lifts toward the light with Sill. Zero dependencies.",
+  "description": "Keyboard focus, carried by real light: a solid outline chosen by measured contrast, and with Sill, the page's lamp travels to focus and the focused control lifts toward it. Zero dependencies.",
   "type": "module",
   "main": "src/focal.js",
   "types": "./src/index.d.ts",
   "exports": {
-    ".": { "types": "./src/index.d.ts", "default": "./src/focal.js" },
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/focal.js"
+    },
     "./focal.css": "./src/focal.css",
     "./index.d.ts": "./src/index.d.ts"
   },
-  "files": ["src", "README.md", "LICENSE"],
-  "scripts": { "test": "node --test tests/*.test.mjs" },
-  "keywords": ["focus", "focus-visible", "keyboard", "accessibility", "a11y", "wcag", "focus-indicator", "ui", "css"],
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "keywords": [
+    "focus",
+    "focus-visible",
+    "keyboard",
+    "accessibility",
+    "a11y",
+    "wcag",
+    "focus-indicator",
+    "ui",
+    "css"
+  ],
   "license": "MIT",
-  "author": { "name": "Designesy", "email": "hello@designesy.org" },
-  "repository": { "type": "git", "url": "git+https://github.com/LE-VAI/focal.git" },
-  "bugs": { "url": "https://github.com/LE-VAI/focal/issues" },
-  "homepage": "https://github.com/LE-VAI/focal#readme",
-  "engines": { "node": ">=18" },
-  "publishConfig": { "access": "public" },
-  "sideEffects": ["*.css"]
+  "author": {
+    "name": "Designesy",
+    "email": "hello@designesy.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LE-VAI/focal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LE-VAI/focal/issues"
+  },
+  "homepage": "https://le-vai.github.io/focal/",
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": [
+    "*.css"
+  ]
 }
