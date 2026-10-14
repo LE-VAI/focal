@@ -70,6 +70,8 @@ the part people see, so the ring and the light land there:
 </label>
 ```
 
+Call `focal.refresh()` after a theme change so the ring is measured against the new surfaces.
+
 Events: `focal:move` (`detail.from`, `detail.to`) and `focal:obscured`
 (`detail.fraction`, `detail.entirely`, `detail.cover`) bubble from the focused
 element.

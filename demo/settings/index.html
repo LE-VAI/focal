@@ -31,56 +31,85 @@
 
   <main id="main" tabindex="-1">
     <div class="intro">
-      <p class="eyebrow">Press Tab</p>
+      <p class="eyebrow">Press <kbd>Tab</kbd></p>
       <h1 data-lit="type" data-depth="12">Settings</h1>
       <p class="lede">Move through the page with the keyboard. The light travels to whatever has focus.</p>
     </div>
 
     <div class="grid">
-      <section class="card" id="profile" data-lit data-material="satin" data-depth="18" aria-labelledby="h-profile">
-        <h2 id="h-profile">Profile</h2>
-        <label class="field"><span>Display name</span><input type="text" value="Ada Lovelace" autocomplete="name"></label>
-        <label class="field"><span>Email</span><input type="email" value="ada@example.com" autocomplete="email"></label>
-        <div class="row">
-          <button class="btn btn-primary" type="button" data-lit data-material="gloss" data-depth="8">Save profile</button>
-          <button class="btn btn-ghost" type="button" data-lit data-material="satin" data-depth="6">Cancel</button>
-        </div>
-      </section>
+      <div class="col">
+        <section class="card" id="profile" data-lit data-material="satin" data-depth="18" aria-labelledby="h-profile">
+          <div class="card-head">
+            <h2 id="h-profile">Profile</h2>
+            <p class="note">How you appear to your team.</p>
+          </div>
+          <div class="who">
+            <span class="avatar" aria-hidden="true">AL</span>
+            <div class="who-text"><strong>Ada Lovelace</strong><span>Owner · joined March 2024</span></div>
+            <button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Change photo</button>
+          </div>
+          <label class="field"><span>Display name</span><input type="text" value="Ada Lovelace" autocomplete="name"></label>
+          <label class="field"><span>Email</span><input type="email" value="ada@example.com" autocomplete="email" aria-describedby="email-hint"><small id="email-hint">Used for sign-in and receipts.</small></label>
+          <div class="row">
+            <button class="btn btn-primary" type="button" data-lit data-material="gloss" data-depth="8">Save profile</button>
+            <button class="btn btn-ghost" type="button" data-lit data-material="satin" data-depth="6">Cancel</button>
+          </div>
+        </section>
 
-      <section class="card" id="appearance" data-lit data-material="satin" data-depth="18" aria-labelledby="h-appearance">
-        <h2 id="h-appearance">Appearance</h2>
-        <fieldset class="seg">
-          <legend>Theme</legend>
-          <label><input type="radio" data-focal-target="span" name="theme" value="system" checked><span>System</span></label>
-          <label><input type="radio" data-focal-target="span" name="theme" value="light"><span>Light</span></label>
-          <label><input type="radio" data-focal-target="span" name="theme" value="dark"><span>Dark</span></label>
-        </fieldset>
-        <label class="switch"><input type="checkbox" role="switch" data-focal-target=".switch-track" checked><span class="switch-label">Reduce transparency</span><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span></label>
-        <label class="field"><span>Text size</span><input type="range" min="12" max="24" value="16"></label>
-      </section>
+        <section class="card card-danger" data-lit data-material="matte" data-depth="14" aria-labelledby="h-danger">
+          <div class="card-head">
+            <h2 id="h-danger">Delete workspace</h2>
+            <p class="note">Removes every project, file and member. This cannot be undone.</p>
+          </div>
+          <div class="row">
+            <button class="btn btn-ghost" type="button" data-lit data-material="satin" data-depth="6">Export data</button>
+            <button class="btn btn-danger" type="button" data-lit data-material="satin" data-depth="6">Delete workspace</button>
+          </div>
+        </section>
+      </div>
+      <div class="col">
+        <section class="card" id="appearance" data-lit data-material="satin" data-depth="18" aria-labelledby="h-appearance">
+          <div class="card-head">
+            <h2 id="h-appearance">Appearance</h2>
+            <p class="note">Applies on this device.</p>
+          </div>
+          <fieldset class="seg">
+            <legend>Theme</legend>
+            <label><input type="radio" data-focal-target="span" name="theme" value="system" checked><span>System</span></label>
+            <label><input type="radio" data-focal-target="span" name="theme" value="light"><span>Light</span></label>
+            <label><input type="radio" data-focal-target="span" name="theme" value="dark"><span>Dark</span></label>
+          </fieldset>
+          <label class="switch"><input type="checkbox" role="switch" data-focal-target=".switch-track" checked><span class="switch-label">Reduce transparency<small>Solid surfaces behind menus</small></span><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span></label>
+          <div class="field size">
+            <label for="text-size">Text size</label>
+            <output id="size-out" for="text-size">16 px</output>
+            <input id="text-size" type="range" min="12" max="24" value="16">
+            <p class="sample" id="size-sample" aria-hidden="true">The quick brown fox</p>
+          </div>
+        </section>
 
-      <section class="card" id="notifications" data-lit data-material="satin" data-depth="18" aria-labelledby="h-notif">
-        <h2 id="h-notif">Notifications</h2>
-        <label class="check"><input type="checkbox" checked><span>Mentions</span></label>
-        <label class="check"><input type="checkbox" checked><span>Replies to my posts</span></label>
-        <label class="check"><input type="checkbox"><span>Weekly digest</span></label>
-        <label class="check"><input type="checkbox"><span>Product news</span></label>
-      </section>
-
-      <section class="card card-danger" data-lit data-material="matte" data-depth="14" aria-labelledby="h-danger">
-        <h2 id="h-danger">Danger zone</h2>
-        <p class="note">Deleting the workspace removes every project in it. This cannot be undone.</p>
-        <button class="btn btn-danger" type="button" data-lit data-material="gloss" data-depth="8">Delete workspace</button>
-      </section>
+        <section class="card" id="notifications" data-lit data-material="satin" data-depth="18" aria-labelledby="h-notif">
+          <div class="card-head">
+            <h2 id="h-notif">Notifications</h2>
+            <p class="note">Email me when…</p>
+          </div>
+          <label class="check"><input type="checkbox" checked><span>Someone mentions me</span></label>
+          <label class="check"><input type="checkbox" checked><span>Someone replies to my posts</span></label>
+          <label class="check"><input type="checkbox"><span>The weekly digest is ready</span></label>
+          <label class="check"><input type="checkbox"><span>There is product news</span></label>
+        </section>
+      </div>
     </div>
 
     <section class="sessions" id="sessions" aria-labelledby="h-sessions">
-      <h2 id="h-sessions">Active sessions</h2>
+      <div class="card-head">
+        <h2 id="h-sessions">Active sessions</h2>
+        <p class="note">Devices signed in to this workspace.</p>
+      </div>
       <ul class="session-list">
-        <li class="session" data-lit data-material="satin" data-depth="10"><span>Chrome on Windows · this device</span><button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Details</button></li>
-        <li class="session" data-lit data-material="satin" data-depth="10"><span>Safari on iPhone · 2 hours ago</span><button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Sign out</button></li>
-        <li class="session" data-lit data-material="satin" data-depth="10"><span>Firefox on Linux · yesterday</span><button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Sign out</button></li>
-        <li class="session" data-lit data-material="satin" data-depth="10"><span>Edge on Windows · last week</span><button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Sign out</button></li>
+        <li class="session" data-lit data-material="satin" data-depth="10"><span class="device"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></svg></span><span class="session-text"><strong>Chrome on Windows</strong><span>New York · active now</span></span><span class="badge">This device</span></li>
+        <li class="session" data-lit data-material="satin" data-depth="10"><span class="device"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="session-text"><strong>Safari on iPhone</strong><span>New York · 2 hours ago</span></span><button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Sign out</button></li>
+        <li class="session" data-lit data-material="satin" data-depth="10"><span class="device"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></svg></span><span class="session-text"><strong>Firefox on Linux</strong><span>Boston · yesterday</span></span><button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Sign out</button></li>
       </ul>
     </section>
   </main>

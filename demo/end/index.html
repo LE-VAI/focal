@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Focal</title>
+  <meta name="description" content="Focal: keyboard focus, carried by real light.">
+  <meta name="color-scheme" content="dark">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400..700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@designesy/sill@0.1.1/src/sill.css">
+  <link rel="stylesheet" href="../../src/focal.css">
+  <link rel="stylesheet" href="../settings/settings.css">
+  <style>
+    body { display: grid; place-items: center; min-height: 100vh; }
+    .end { display: grid; justify-items: center; gap: 28px; text-align: center; }
+    .word {
+      display: inline-block; padding: 0 0.14em 0.06em; border-radius: clamp(20px, 2.4vw, 44px);
+      color: var(--ink); text-decoration: none;
+      font: 650 clamp(6rem, 21vw, 24rem)/0.95 'Fraunces', serif; letter-spacing: -0.05em;
+      font-variation-settings: 'SOFT' 60, 'opsz' 144;
+    }
+    .tagline { margin: 0; color: var(--muted); font: 500 clamp(1.1rem, 1.6vw, 1.9rem)/1.4 'Atkinson Hyperlegible Mono', monospace; letter-spacing: 0.02em; }
+    .hint { display: flex; align-items: center; gap: 10px; color: var(--muted-dim); font: 500 clamp(0.8rem, 0.9vw, 1.05rem)/1 'Atkinson Hyperlegible Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <main class="end">
+    <a class="word" href="../settings/" data-lit="type" data-depth="22">Focal</a>
+    <p class="tagline">Keyboard focus, carried by real light.</p>
+    <p class="hint">Press <kbd>Tab</kbd></p>
+  </main>
+  <script type="module">
+    import { Sill } from 'https://cdn.jsdelivr.net/npm/@designesy/sill@0.1.1/src/sill.js';
+    import { Focal } from '../../src/focal.js';
+    window.sill = new Sill({ root: document.body, params: { mode: 'lamp', temperature: 5600, intensity: 1.2, ambient: 0.3, shadowLength: 1.4, softness: 0.5, depth: 1.6, material: 1.4, rays: 0 } });
+    window.focal = new Focal({ sill: window.sill, lightOffset: [-160, -170] });
+  </script>
+</body>
+</html>

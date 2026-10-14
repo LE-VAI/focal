@@ -160,6 +160,8 @@ export class Focal {
     this.reduced = this.win.matchMedia('(prefers-reduced-motion: reduce)');
     this.forced = this.win.matchMedia('(forced-colors: active)');
     this.lifted = null;
+    this.rising = new Map(); // lit item -> rAF id of its elevation easing
+    this.rests = new Map(); // lit item -> its authored depth while Focal has moved it
     this.savedFollow = null;
     this._mount();
     this._bind();
@@ -194,10 +196,20 @@ export class Focal {
     this.win.addEventListener('scroll', () => { if (this.aimed && this.current) this._aim(this._snap(this.current), true); }, { signal: this.abort.signal, passive: true });
   }
 
+  /** Re-measure the ring for the current focus, after a theme or background change. */
+  refresh() {
+    if (this.current) this._setRing(this.current, this.doc.activeElement || this.current);
+  }
+
   destroy() {
     this.abort.abort();
     this._stopSweep();
-    this._unlift();
+    for (const id of this.rising.values()) this.win.cancelAnimationFrame(id);
+    this.rising.clear();
+    for (const [it, rest] of this.rests) { it.depth = rest; }
+    this.rests.clear();
+    this.lifted = null;
+    this.sill?.refresh?.();
     this.doc.documentElement.classList.remove('focal');
   }
 
@@ -284,17 +296,48 @@ export class Focal {
     // Only an element that is itself lit lifts; a field inside a card leaves the card alone.
     const it = s.items && el.matches('[data-lit]') && s.items.get(el);
     if (!it) return;
-    this.lifted = { it, depth: it.depth };
-    if (typeof s.setElevation === 'function') s.setElevation(it.el, it.depth + this.opts.lift);
-    else { it.depth += this.opts.lift; s.refresh?.(); }
+    const rest = this.rests.get(it) ?? it.depth;
+    this.lifted = { it, rest };
+    this._elevate(it, rest, rest + this.opts.lift);
   }
 
   _unlift() {
     if (!this.lifted) return;
-    const { it, depth } = this.lifted;
-    if (typeof this.sill?.setElevation === 'function') this.sill.setElevation(it.el, depth);
-    else { it.depth = depth; this.sill?.refresh?.(); }
+    const { it, rest } = this.lifted;
+    this._elevate(it, rest, rest);
     this.lifted = null;
+  }
+
+  /**
+   * Move an element's elevation to `to`, eased like the lamp so it rises and
+   * settles rather than popping. `rest` is its authored depth, kept so a control
+   * caught mid-rise always comes back to where it started.
+   */
+  _elevate(it, rest, to) {
+    const s = this.sill;
+    const set = (d) => {
+      if (typeof s.setElevation === 'function') s.setElevation(it.el, d);
+      else { it.depth = d; s.refresh?.(); }
+    };
+    const prev = this.rising.get(it);
+    if (prev) this.win.cancelAnimationFrame(prev);
+    this.rising.delete(it);
+    this.rests.set(it, rest);
+    const from = it.depth;
+    if (this.reduced.matches || this.doc.hidden || Math.abs(to - from) < 0.5) {
+      set(to);
+      if (to === rest) this.rests.delete(it);
+      return;
+    }
+    const dur = 280;
+    const t0 = this.win.performance.now();
+    const step = (now) => {
+      const k = minJerk((now - t0) / dur);
+      set(from + (to - from) * k);
+      if (k < 1) this.rising.set(it, this.win.requestAnimationFrame(step));
+      else { this.rising.delete(it); if (to === rest) this.rests.delete(it); }
+    };
+    this.rising.set(it, this.win.requestAnimationFrame(step));
   }
 
   _lightFollow(to) {

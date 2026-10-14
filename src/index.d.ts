@@ -25,6 +25,8 @@ export declare const DEFAULTS: Required<Omit<FocalOptions, 'root' | 'sill'>>;
 
 export declare class Focal {
   constructor(options?: FocalOptions);
+  /** Re-measure the ring for the current focus, after a theme or background change. */
+  refresh(): void;
   destroy(): void;
 }
 
