@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Focal Settings Demo</title>
+  <meta name="description" content="Focal demo: keyboard focus as light. Press Tab.">
+  <meta name="color-scheme" content="dark">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400..700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@designesy/sill@0.1.1/src/sill.css">
+  <link rel="stylesheet" href="../../src/focal.css">
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to settings</a>
+
+  <header class="top" data-lit data-material="glass" data-depth="30" data-opacity="0.4">
+    <span class="mark">Workspace</span>
+    <nav aria-label="Sections">
+      <ul class="tabs">
+        <li><a href="#profile" aria-current="page">Profile</a></li>
+        <li><a href="#appearance">Appearance</a></li>
+        <li><a href="#notifications">Notifications</a></li>
+        <li><a href="#sessions">Sessions</a></li>
+      </ul>
+    </nav>
+    <button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Help</button>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="intro">
+      <p class="eyebrow">Press Tab</p>
+      <h1 data-lit="type" data-depth="12">Settings</h1>
+      <p class="lede">Move through the page with the keyboard. The light follows focus, and a trail shows where it came from.</p>
+    </div>
+
+    <div class="grid">
+      <section class="card" id="profile" data-lit data-material="satin" data-depth="18" aria-labelledby="h-profile">
+        <h2 id="h-profile">Profile</h2>
+        <label class="field"><span>Display name</span><input type="text" value="Ada Lovelace" autocomplete="name"></label>
+        <label class="field"><span>Email</span><input type="email" value="ada@example.com" autocomplete="email"></label>
+        <div class="row">
+          <button class="btn btn-primary" type="button" data-lit data-material="gloss" data-depth="8">Save profile</button>
+          <button class="btn btn-ghost" type="button" data-lit data-material="satin" data-depth="6">Cancel</button>
+        </div>
+      </section>
+
+      <section class="card" id="appearance" data-lit data-material="satin" data-depth="18" aria-labelledby="h-appearance">
+        <h2 id="h-appearance">Appearance</h2>
+        <fieldset class="seg">
+          <legend>Theme</legend>
+          <label><input type="radio" data-focal-target="span" name="theme" value="system" checked><span>System</span></label>
+          <label><input type="radio" data-focal-target="span" name="theme" value="light"><span>Light</span></label>
+          <label><input type="radio" data-focal-target="span" name="theme" value="dark"><span>Dark</span></label>
+        </fieldset>
+        <label class="switch"><input type="checkbox" role="switch" data-focal-target=".switch-track" checked><span class="switch-label">Reduce transparency</span><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span></label>
+        <label class="field"><span>Text size</span><input type="range" min="12" max="24" value="16"></label>
+      </section>
+
+      <section class="card" id="notifications" data-lit data-material="satin" data-depth="18" aria-labelledby="h-notif">
+        <h2 id="h-notif">Notifications</h2>
+        <label class="check"><input type="checkbox" checked><span>Mentions</span></label>
+        <label class="check"><input type="checkbox" checked><span>Replies to my posts</span></label>
+        <label class="check"><input type="checkbox"><span>Weekly digest</span></label>
+        <label class="check"><input type="checkbox"><span>Product news</span></label>
+      </section>
+
+      <section class="card card-danger" data-lit data-material="matte" data-depth="14" aria-labelledby="h-danger">
+        <h2 id="h-danger">Danger zone</h2>
+        <p class="note">Deleting the workspace removes every project in it. This cannot be undone.</p>
+        <button class="btn btn-danger" type="button" data-lit data-material="gloss" data-depth="8">Delete workspace</button>
+      </section>
+    </div>
+
+    <section class="sessions" id="sessions" aria-labelledby="h-sessions">
+      <h2 id="h-sessions">Active sessions</h2>
+      <ul class="session-list">
+        <li class="session" data-lit data-material="satin" data-depth="10"><span>Chrome on Windows · this device</span><button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Details</button></li>
+        <li class="session" data-lit data-material="satin" data-depth="10"><span>Safari on iPhone · 2 hours ago</span><button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Sign out</button></li>
+        <li class="session" data-lit data-material="satin" data-depth="10"><span>Firefox on Linux · yesterday</span><button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Sign out</button></li>
+        <li class="session" data-lit data-material="satin" data-depth="10"><span>Edge on Windows · last week</span><button class="btn btn-ghost btn-sm" type="button" data-lit data-material="satin" data-depth="5">Sign out</button></li>
+      </ul>
+    </section>
+  </main>
+
+  <script type="module" src="settings.js"></script>
+</body>
+</html>

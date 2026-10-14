@@ -1,0 +1,66 @@
+/*
+  Focal: keyboard focus as light. Styles.
+
+  The outline is the indicator; everything else is decoration on top of it.
+  --focal-ring is set per element by Focal from measured contrast.
+*/
+
+html.focal :focus-visible {
+  outline: var(--focal-ring-width, 2px) solid var(--focal-ring, #0a94ff);
+  outline-offset: var(--focal-ring-offset, 3px);
+}
+
+.focal-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+
+.focal-bloom,
+.focal-comet,
+.focal-tail {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* A soft halo just outside the outline: the light the focused element gives off. */
+.focal-bloom {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--focal-ring, #0a94ff) 55%, transparent),
+    0 0 18px 2px color-mix(in srgb, var(--focal-ring, #0a94ff) 35%, transparent),
+    0 0 48px 6px color-mix(in srgb, var(--focal-ring, #0a94ff) 14%, transparent);
+  transform-origin: center;
+}
+.focal-layer:not(.is-on) .focal-bloom { visibility: hidden; }
+
+/* The head of the trail. */
+.focal-comet {
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 32%, var(--focal-ring, #0a94ff) 62%, transparent 72%);
+  box-shadow: 0 0 28px 8px color-mix(in srgb, var(--focal-ring, #0a94ff) 65%, transparent);
+}
+
+/* The streak behind it, drawn from its head back along the path. */
+.focal-tail {
+  height: 6px;
+  border-radius: 999px;
+  /* Anchored at its right end, the head; rotation and stretch pivot there. */
+  transform-origin: 100% 50%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--focal-ring, #0a94ff) 80%, white) 65%, white);
+  box-shadow: 0 0 20px 4px color-mix(in srgb, var(--focal-ring, #0a94ff) 55%, transparent);
+  filter: blur(0.4px);
+}
+
+@media (forced-colors: active) {
+  html.focal :focus-visible { outline-color: Highlight; }
+  .focal-layer { display: none; }
+}
