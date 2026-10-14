@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   parseColor, composite, luminance, contrastRatio, pickRing,
-  minimumIndicatorArea, outlineArea, meetsFocusArea, travelDuration, edgeEntry, samplePoints, DEFAULTS,
+  minimumIndicatorArea, outlineArea, meetsFocusArea, travelDuration, minJerk, samplePoints, DEFAULTS,
 } from '../src/focal.js';
 
 test('the module imports in plain Node (no DOM at load)', async () => {
@@ -85,20 +85,27 @@ test('area math: a 2px ring flush with the edge equals the 2px perimeter plus it
   assert.equal(outlineArea(w, h, 2, 0), (w + 4) * (h + 4) - w * h);
 });
 
-test('trail duration grows with distance and stays inside 240-460 ms', () => {
+test('sweep duration grows with distance and stays inside 240-460 ms', () => {
   assert.equal(travelDuration(0), 240);
   assert.ok(travelDuration(800) > travelDuration(300));
   assert.equal(travelDuration(10000), 460);
 });
 
-test('edgeEntry: focus arriving from off screen enters on the edge it came from', () => {
-  const to = { x: 500, y: 400 }, vw = 1000, vh = 800;
-  const above = edgeEntry({ x: 500, y: -900 }, to, vw, vh);
-  assert.ok(Math.abs(above.y - 8) < 1e-9 && Math.abs(above.x - 500) < 1e-9);
-  const right = edgeEntry({ x: 3000, y: 400 }, to, vw, vh);
-  assert.ok(Math.abs(right.x - 992) < 1e-9);
-  const below = edgeEntry({ x: 520, y: 5000 }, to, vw, vh);
-  assert.ok(Math.abs(below.y - 792) < 1e-9);
+test('minJerk starts and ends at rest and is symmetric', () => {
+  assert.equal(minJerk(0), 0);
+  assert.equal(minJerk(1), 1);
+  assert.equal(minJerk(0.5), 0.5);
+  assert.equal(minJerk(-1), 0);
+  assert.equal(minJerk(2), 1);
+  // Velocity is near zero at both ends: no snap leaving or arriving.
+  assert.ok(minJerk(0.02) < 0.001 && 1 - minJerk(0.98) < 0.001);
+  for (let t = 0; t < 1; t += 0.05) assert.ok(minJerk(t + 0.05) >= minJerk(t));
+});
+
+test('no glow: the defaults carry no trail or bloom option', () => {
+  assert.equal('trail' in DEFAULTS, false);
+  assert.equal('bloom' in DEFAULTS, false);
+  assert.equal(DEFAULTS.sweep, true);
 });
 
 test('samplePoints covers the rect with a 3x3 grid inside its edges', () => {

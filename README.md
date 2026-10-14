@@ -2,11 +2,12 @@
 
 Keyboard focus as light.
 
-When focus moves, a short trail of light travels from where it was to where it
-is, so the eye can follow a jump across the page. The focused control gets a
-real outline whose colour is chosen by measuring contrast against the surface
-it sits on. With [Sill](https://github.com/LE-VAI/sill) on the page, the focused
-element lifts toward the light and the light follows keyboard focus, so keyboard
+The focused control gets a real outline whose colour is chosen by measuring
+contrast against the surface it sits on. With [Sill](https://github.com/LE-VAI/sill)
+on the page, the page's own lamp travels to whatever has focus and the control
+lifts toward it: its shadow lengthens, its edges catch the light, and the shadows
+across the page swing as the lamp moves, so the eye follows a jump. Nothing is
+drawn on top. No glow, no halo: the emphasis is the light itself, so keyboard
 users get the same physical interface pointer users do.
 
 ```js
@@ -23,8 +24,8 @@ npm install @designesy/focal
 
 ## What it guarantees
 
-- **A real outline, always.** The trail and the halo are added on top of a solid
-  outline and can be removed without losing the indicator. The default 2 px
+- **A real outline, always.** The light is added on top of a solid outline and
+  can be removed without losing the indicator. The default 2 px
   outline at a 3 px offset meets the area floor of WCAG 2.2 SC 2.4.13 Focus
   Appearance for any component size (tested).
 - **3:1 where it counts.** SC 2.4.13 measures the indicator's own pixels between
@@ -37,10 +38,10 @@ npm install @designesy/focal
   whether author content such as a sticky header covers the focused element
   (SC 2.4.11 Focus Not Obscured, and 2.4.12 for partial cover), warns in the
   console, and scrolls it clear.
-- **Reduced motion means no travel.** Under `prefers-reduced-motion`, the trail is
-  off and the halo is a 150 ms fade.
+- **Reduced motion means no travel.** Under `prefers-reduced-motion`, the lamp is
+  placed at the new focus without sweeping there.
 - **Forced colours means the system's colours.** In Windows High Contrast and other
-  forced-colour modes, the outline uses `Highlight` and the light effects are off.
+  forced-colour modes, the outline uses `Highlight` and the lamp does not travel.
 - **It changes nothing about focus.** Focal never moves focus, never changes tab
   order, and draws nothing that can be clicked. It only shows where focus already is.
 
@@ -52,15 +53,15 @@ npm install @designesy/focal
 | `ringWidth` | `2` | outline width in px |
 | `ringOffset` | `3` | outline offset in px |
 | `ringColors` | `['#0a94ff', '#016abb', '#ffffff', '#1a1a1e']` | ring colours, in order of preference |
-| `trail` | `true` | the travelling light |
-| `bloom` | `true` | the halo around the focused control |
-| `lift` | `10` | extra elevation for a focused lit element (Sill) |
+| `lift` | `12` | extra elevation for a focused lit element (Sill) |
 | `followLight` | `true` | the light follows keyboard focus (Sill) |
+| `sweep` | `true` | the lamp travels to the new focus instead of jumping (Sill) |
+| `lightOffset` | `[-60, -120]` | where the lamp sits relative to the control's centre, px (Sill) |
 | `fixObscured` | `true` | scroll focus clear of covering content |
 | `warnObscured` | `true` | console warning when focus is covered |
 
 Visually hidden native inputs (a custom switch or segmented control) can name
-the part people see, so the ring and trail land there:
+the part people see, so the ring and the light land there:
 
 ```html
 <label class="switch">
@@ -86,7 +87,7 @@ Then open `http://localhost:4742/demo/settings/`.
 
 ## Browser support
 
-The trail uses the Web Animations API and `color-mix()`. Tested in Chrome 154 and Firefox 152 on Windows, with no console errors. Safari is not yet tested.
+Focal needs nothing beyond `:focus-visible` and `requestAnimationFrame`. Tested in Chrome 154 and Firefox 152 on Windows, with no console errors. Safari is not yet tested.
 
 ## License
 

@@ -9,11 +9,13 @@ export interface FocalOptions {
   ringOffset?: number;
   /** Ring colours in order of preference; the first that keeps 3:1 under the ring wins. */
   ringColors?: string[];
-  trail?: boolean;
-  bloom?: boolean;
   /** Extra elevation in px for a focused lit element (with Sill). */
   lift?: number;
   followLight?: boolean;
+  /** With Sill: the light travels to the new focus instead of jumping. */
+  sweep?: boolean;
+  /** With Sill: where the lamp sits relative to the focused control's centre, in px. */
+  lightOffset?: [number, number];
   /** Scroll focus clear of sticky or fixed content that hides it. */
   fixObscured?: boolean;
   warnObscured?: boolean;
@@ -36,7 +38,7 @@ export declare function minimumIndicatorArea(w: number, h: number): number;
 export declare function outlineArea(w: number, h: number, width: number, offset: number): number;
 export declare function meetsFocusArea(w: number, h: number, width: number, offset: number): boolean;
 export declare function travelDuration(dist: number): number;
-export declare function edgeEntry(from: { x: number; y: number }, to: { x: number; y: number }, vw: number, vh: number, inset?: number): { x: number; y: number };
+export declare function minJerk(t: number): number;
 export declare function samplePoints(rect: { left: number; top: number; width: number; height: number }): { x: number; y: number }[];
 
 export interface FocalMoveDetail { from: DOMRectInit | null; to: DOMRectInit }
